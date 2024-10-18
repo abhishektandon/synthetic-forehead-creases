@@ -1,6 +1,6 @@
 # Synthetic Forehead-Creases Biometric Generation for Reliable User Verification 
 #### Abhishek Tandon, Geetanjali Sharma, Gaurav Jaswal, Aditya Nigam, Raghavendra Ramachandra
---------
+
 Generative AI for Futuristic Biometrics - IJCB'24 Special Session
 
 [Arxiv Pre-print](https://arxiv.org/abs/2408.15693)
