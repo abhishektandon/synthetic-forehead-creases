@@ -1,3 +1,5 @@
+# adapted from: https://github.com/rohit901/ForeheadCreases/blob/main/Main_Network_Code.ipynb
+
 from torch.nn import Softmax
 import torch
 import time
@@ -29,23 +31,16 @@ img_width = 224
 img_height = 224
 channels = 3
 embedding_dim = 512
-freeze_layers = False
-early_stopping = False
 
 load_from_pretrained = True
+freeze_layers = False
 
-# saved_weights_path = "/home/ada/abhishek/recognition/forehead/ForeheadCreases/checkpoints/checkpoints_forehead-v1-labeled_adaface/Model_Weights_forehead-v1-labeled_adaface_1.pth"
-# saved_weights_path = "/mnt/new/abhishek/recognition/forehead/checkpoints_bezier_fc_1_pID_augs_from_2_pID_subset_100_and_real_adaface_finetune_bezier_fc_1_pID_augs_from_2_pID_subset_50_and_real/Model_Weights_bezier_fc_1_pID_augs_from_2_pID_subset_100_and_real_adaface_finetune_bezier_fc_1_pID_augs_from_2_pID_subset_50_and_real_1.pth"
+saved_weights_path = '' # enter path of the model to load
 
-# saved_weights_path = 'checkpoints_bspline_grid_1_pID_augs_one2one_correct_and_real_subset_297_adaface_finetune_bezier_fc_1_pID_augs_best_9.5/Model_Weights_bspline_grid_1_pID_augs_one2one_correct_and_real_subset_297_adaface_finetune_bezier_fc_1_pID_augs_best_9.5_1.pth' # 9.18
-# saved_weights_path = './checkpoints_bspline_grid_1_pID_augs_one2one_correct_and_real_subset_347_adaface_finetune_subset_297/Model_Weights_bspline_grid_1_pID_augs_one2one_correct_and_real_subset_347_adaface_finetune_subset_297_1.pth'
+dataset_name = 'forehead-v1-labeled'
+suffix = f'_adaface' # either leave empty or 
+                     # always begin with _ (use when you repeat a dataset but with some parameter(s) changed)
 
-# IJCB best model (EER: 9.38)
-saved_weights_path = '/home/ada/abhishek/recognition/forehead/ForeheadCreases/checkpoints_forehead_bbdm_128_v1_permute90_randaug100_new_adaface_use_se_no_test-hflip/Model_Weights_forehead_bbdm_128_v1_permute90_randaug100_new_adaface_use_se_no_test-hflip_1.pth'
-
-print("freeze layers:", freeze_layers)
-print("early stopping:", early_stopping)
-    
 size1_new = int(np.floor(img_width/2))
 size2_new = int(np.floor(img_height/2))
 
@@ -512,6 +507,7 @@ class ResNetFace(nn.Module):
         x = self.fc5(x)
         x = self.bn5(x)
 
+        # AdaFace uses normalized embeddings
         if opt.metric == "adaface":
             norm = torch.norm(x, 2, 1, True)
             x = torch.div(x, norm)
@@ -524,12 +520,8 @@ def resnet_18(use_se=True, **kwargs):
     return model
 
 
-dataset_name = 'forehead-v1-labeled'
-suffix = f'_adaface_finetune_bspline_grid_1_pID_augs_one2one_correct_and_real_subset_347_adaface_finetune_subset_297_save_head' # either leave empty or 
-                                 # always begin with _ (use when you repeat a dataset but with some parameter(s) changed)
-
 ds, class_num = get_train_dataset(f"{dataset_name}/train")
-ds2, class_num2 = get_train_dataset("forehead-v1-labeled/test")
+ds2, class_num2 = get_train_dataset(f"{dataset_name}/test")
 
 # os.makedirs("checkpoints", exist_ok=True)
 
@@ -571,7 +563,7 @@ class Config(object):
     result_file = 'result.csv'
 
     
-    max_epoch = 55
+    max_epoch = 100
     lr = 3e-4  # initial learning rate before 1e-3
     lr_step = 20
     lr_decay = 0.95  # when val_loss increase, lr = lr*lr_decay
@@ -585,6 +577,7 @@ print("metric:", opt.metric)
 print("use_se:", opt.use_se)
 print("dim:", img_width,'x',img_height)
 print("dataset:", dataset_name)
+print("freeze layers:", freeze_layers)
 
 loader = DataLoader(ds, batch_size= opt.train_batch_size, shuffle=True, pin_memory= opt.pin_memory, num_workers= opt.num_workers)
 test_loader = DataLoader(ds2, batch_size = opt.test_batch_size)
@@ -648,12 +641,11 @@ if load_from_pretrained:
 # # Load the model weights
 if freeze_layers == True:
 
-    # saved_weights_path = '/home/ada/abhishek/recognition/forehead/ForeheadCreases/checkpoints/checkpoints_forehead_bbdm_128_v1_permute90_randaug100_new_adaface/Model_Weights_forehead_bbdm_128_v1_permute90_randaug100_new_adaface_1.pth'
-    # saved_weights_path = '/mnt/new/abhishek/recognition/forehead/checkpoints_bezier_fc_1_one2one_adaface/Model_Weights_bezier_fc_1_one2one_adaface_1.pth'
     load_model(model, saved_weights_path)
 
     raw_model = model.module
     unfrozen_layers = [raw_model.sattention, raw_model.cattention, raw_model.fc5, raw_model.bn5]
+
     print("\nfreezing layers...")
     # print(raw_model)
     for param in raw_model.parameters():
@@ -672,7 +664,7 @@ min_loss = 0.0
 loss_counter = 0
 
 print("training...")
-stop_training = False
+
 for i in range(opt.max_epoch):
     
     correct_train = 0
@@ -680,10 +672,6 @@ for i in range(opt.max_epoch):
     running_loss = 0.0
     model.train()
     
-    if stop_training == True:
-        save_model(model, opt.checkpoints_path, f"Model_Weights_{dataset_name}{suffix}", f'{i}')
-        break
-
     for ii, data in enumerate(loader):
         data_input, label = data
         data_input = data_input.to(device)
@@ -720,22 +708,6 @@ for i in range(opt.max_epoch):
     train_acc.append(np.round(100 * correct_train / total_train, 2))
 
     loss = np.round(running_loss / total_train, 3)
-
-    # if early_stopping:
-    #     if i == 0:
-    #         min_loss = loss
-        
-    #     if loss < min_loss and i>=1:
-    #         min_loss = loss
-
-    #         if min_loss <= 0.001:
-    #             loss_counter = loss_counter + 1
-
-    #             if loss_counter == 3:
-    #                 stop_training = True
-
-    #         else:
-    #             loss_counter = 0
 
     print(f"Epoch: {i+1}, Training Accuracy: {np.round(100 * correct_train / total_train, 2)}%, Loss: {np.round(running_loss / total_train, 3)}")
     loss_list.append(np.round(running_loss / total_train, 3))
@@ -787,14 +759,12 @@ def get_dataset_modified(imgs_folder):
         train_transform = trans.Compose([
             trans.Grayscale(num_output_channels=channels),
             trans.Resize((img_width, img_height)),
-            # trans.RandomHorizontalFlip(),
             trans.ToTensor(),
             trans.Normalize((0.5,), (0.5,))
         ])
     else:
         train_transform = trans.Compose([
             trans.Resize((img_width, img_height)),
-            # trans.RandomHorizontalFlip(),
             trans.ToTensor(),
             trans.Normalize((0.5,), (0.5,))
         ])
@@ -803,10 +773,10 @@ def get_dataset_modified(imgs_folder):
     return ds, class_num
 
 
-# ds3, cnum = get_dataset_modified("cross_database/test")
-# ds4, cnum2 = get_dataset_modified("cross_database/train")
+test_dataset_name = 'cross_database'
 
-test_dataset_name = 'cross_database_remove_329_512_527_rename'
+ds3, cnum = get_dataset_modified(f"{test_dataset_name}/test")
+ds4, cnum2 = get_dataset_modified(f"{test_dataset_name}/train")
 
 print('test dataset name:', test_dataset_name)
 ds3, cnum = get_dataset_modified(f"{test_dataset_name}/test")
@@ -860,55 +830,3 @@ for k_test,v_test in embedding_dict_test.items():
       isGen = 0
     with open(f"scores/{test_dataset_name}/scores_{dataset_name}{suffix}_{test_dataset_name}.txt", "a") as file:
       file.write(str(idx1) + "\t" + str(pose1) + "\t" + str(idx2) + "\t" + str(pose2) + "\t" + str(isGen) + "\t" + str(torch.dist(v_test, v_train, p = 2).item()) + "\n")
-
-
-# ds3, cnum = get_dataset_modified("forehead-v1-labeled/test")
-# ds4, cnum2 = get_dataset_modified("forehead-v1-labeled/train")
-
-# new_loader = DataLoader(ds3, batch_size = 1)
-# new_loader_train = DataLoader(ds4, batch_size = 1)
-
-# embedding_dict_test = {}
-# embedding_dict_train = {}
-# print("creating closed_set score file...")
-# with torch.no_grad():
-#     model.eval()
-#     for i, data in enumerate(new_loader, 0):
-#             images, labels, path = data
-#             images = images.to(device)
-#             if opt.metric == "adaface":
-#                 feature_test, _ = model(images)
-#             else:
-#                 feature_test = model(images) #512 dimensional embedding
-#             idx1 = path[0].split("/")[2] 
-#             pose1 = path[0].split("/")[-1][:-4]
-#             embedding_dict_test[str(idx1)+"_"+str(pose1)] = feature_test.cpu()
-
-#     for i2, data_train in enumerate(new_loader_train):
-#             images_train, labels_train, path_train = data_train
-#             images_train = images_train.to(device)
-#             if opt.metric == "adaface":
-#                 feature_train, _ = model(images_train)
-#             else:
-#                 feature_train = model(images_train)
-#             idx2 = path_train[0].split("/")[2] 
-#             pose2 = path_train[0].split("/")[-1][:-4]
-#             embedding_dict_train[str(idx2)+"_"+str(pose2)] = feature_train.cpu()
-
-
-# #Create Matching Score File
-
-# for k_test,v_test in embedding_dict_test.items():
-#   myKList = k_test.split("_")
-#   idx1 = myKList[0]
-#   pose1 = myKList[1]
-#   for k_train,v_train in embedding_dict_train.items():
-#     myKList2 = k_train.split("_")
-#     idx2 = myKList2[0]
-#     pose2 = myKList2[1]
-#     if idx1 == idx2:
-#       isGen = 1
-#     else:
-#       isGen = 0
-#     with open(f"scores/closed_set/scores_{dataset_name}{suffix}_closed_set.txt", "a") as file:
-#       file.write(str(idx1) + "\t" + str(pose1) + "\t" + str(idx2) + "\t" + str(pose2) + "\t" + str(isGen) + "\t" + str(torch.dist(v_test, v_train, p = 2).item()) + "\n")
