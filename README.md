@@ -7,7 +7,6 @@ Generative AI for Futuristic Biometrics - IJCB'24 Special Session
 ![main-figure](./imgs/main-figure.png)
 
 
------------
 # Results
 
 | Synthetic Data | EER | TMR@FMR = 0.1/0.01 (%) | Dataset | Model |
@@ -16,4 +15,3 @@ Generative AI for Futuristic Biometrics - IJCB'24 Special Session
 
 ----------
 #### repository is under updation
-----------

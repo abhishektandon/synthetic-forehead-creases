@@ -1,4 +1,5 @@
 # adapted from: https://github.com/rohit901/ForeheadCreases/blob/main/Main_Network_Code.ipynb
+# Note: prefer storing dataset at the same location as train.py
 
 from torch.nn import Softmax
 import torch
@@ -630,6 +631,7 @@ def load_model(model, load_path):
     model.load_state_dict(torch.load(load_path))
 
     return model
+
 # Specify the path to the saved weights file
 
 if load_from_pretrained:
