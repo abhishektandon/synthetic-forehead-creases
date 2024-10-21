@@ -181,6 +181,7 @@ def l2_norm(input,axis=1):
     output = torch.div(input, norm)
     return output
 
+# https://github.com/mk-minchul/AdaFace/blob/master/head.py
 class AdaFace(Module):
     def __init__(self,
                  embedding_size=512,

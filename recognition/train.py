@@ -1,5 +1,5 @@
 # adapted from: https://github.com/rohit901/ForeheadCreases/blob/main/Main_Network_Code.ipynb
-# Note: prefer storing dataset at the same location as train.py
+# Note: store dataset at the same location as train.py
 
 from torch.nn import Softmax
 import torch
@@ -33,7 +33,7 @@ img_height = 224
 channels = 3
 embedding_dim = 512
 
-load_from_pretrained = True
+load_from_pretrained = False
 freeze_layers = False
 
 saved_weights_path = '' # enter path of the model to load
