@@ -42,6 +42,8 @@ dataset_name = 'forehead-v1-labeled'
 suffix = f'_adaface' # either leave empty or 
                      # always begin with _ (use when you repeat a dataset but with some parameter(s) changed)
 
+test_dataset_name = 'cross_database'
+
 size1_new = int(np.floor(img_width/2))
 size2_new = int(np.floor(img_height/2))
 
@@ -775,7 +777,6 @@ def get_dataset_modified(imgs_folder):
     return ds, class_num
 
 
-test_dataset_name = 'cross_database'
 os.makedirs(f"scores/{test_dataset_name}", exist_ok=True)
 
 ds3, cnum = get_dataset_modified(f"{test_dataset_name}/test")
