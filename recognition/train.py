@@ -776,6 +776,7 @@ def get_dataset_modified(imgs_folder):
 
 
 test_dataset_name = 'cross_database'
+os.makedirs(f"scores/{test_dataset_name}", exist_ok=True)
 
 ds3, cnum = get_dataset_modified(f"{test_dataset_name}/test")
 ds4, cnum2 = get_dataset_modified(f"{test_dataset_name}/train")
