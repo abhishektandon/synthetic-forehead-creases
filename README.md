@@ -12,9 +12,10 @@ Generative AI for Futuristic Biometrics - IJCB'24 Special Session
 
 # Results
 
-| Synthetic Database | EER | TMR@FMR = 0.1/0.01 (%) | Dataset | Pretrained Model |
+| Database | EER | TMR@FMR = 0.1/0.01 (%) | Dataset | Pretrained Model |
 |----------|----------|----------|----------|----------|
-| SS-PermuteAug   | 9.38     | 60.32/45.68 |    [link](https://huggingface.co/datasets/abhi-td/synthetic-forehead-creases/tree/main/subject_specific_synthetic_datasets/ss-permute-aug)      |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) |
+| FH-V1 (Real)  | 12.39     | 40.19/21.97 |  [link](https://ktiwari.in/biometrics/databases/)    |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/forehead-v1-adaface) |
+| SS-PermuteAug (Synthetic)  | 9.38     | 60.32/45.68 |    [link](https://huggingface.co/datasets/abhi-td/synthetic-forehead-creases/tree/main/subject_specific_synthetic_datasets/ss-permute-aug)      |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) |
 
 ----------
 #### repository is under updation
