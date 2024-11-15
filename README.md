@@ -3,9 +3,9 @@
 
 ##### <sup>1</sup>Indian Institute of Technology (IIT), Mandi, India, <sup>2</sup>Technology and Innovation Hub (TIH), IIT Mandi, India, <sup>3</sup>Norwegian University of Science and Technology (NTNU), Norway
 --------
-Accepted at Generative AI for Futuristic Biometrics - IJCB'24 Special Session
+IJCB'24 (Generative AI for Futuristic Biometrics)
 
-[Arxiv Pre-print](https://arxiv.org/abs/2408.15693)
+[IEEE Xplore](https://ieeexplore.ieee.org/document/10744453) [Arxiv](https://arxiv.org/abs/2408.15693)
 
 --------
 
@@ -28,10 +28,14 @@ Accepted at Generative AI for Futuristic Biometrics - IJCB'24 Special Session
 
 # Citation
 ```
-@article{tandon2024synthetic,
-  title={Synthetic Forehead-creases Biometric Generation for Reliable User Verification},
+@INPROCEEDINGS{10744453,
   author={Tandon, Abhishek and Sharma, Geetanjali and Jaswal, Gaurav and Nigam, Aditya and Ramachandra, Raghavendra},
-  journal={arXiv preprint arXiv:2408.15693},
-  year={2024}
-}
+  booktitle={2024 IEEE International Joint Conference on Biometrics (IJCB)}, 
+  title={Synthetic Forehead-creases Biometric Generation for Reliable User Verification}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-9},
+  keywords={Bridges;Training;Data privacy;Forehead;Face recognition;Benchmark testing;Diffusion models;Time factors;Synthetic data;Iris recognition},
+  doi={10.1109/IJCB62174.2024.10744453}}
 ```
