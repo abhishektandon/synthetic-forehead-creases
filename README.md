@@ -3,7 +3,7 @@
 
 ##### <sup>1</sup>Indian Institute of Technology (IIT), Mandi, India, <sup>2</sup>Technology and Innovation Hub (TIH), IIT Mandi, India, <sup>3</sup>Norwegian University of Science and Technology (NTNU), Norway
 --------
-IJCB'24 (Generative AI for Futuristic Biometrics)
+2024 IEEE International Joint Conference on Biometrics (IJCB)
 
 [IEEE Xplore](https://ieeexplore.ieee.org/document/10744453) [Arxiv](https://arxiv.org/abs/2408.15693)
 
