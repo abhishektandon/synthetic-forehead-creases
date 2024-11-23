@@ -28,14 +28,12 @@
 
 # Citation
 ```
-@INPROCEEDINGS{10744453,
+@inproceedings{tandon2024synthetic,
+  title={Synthetic Forehead-creases Biometric Generation for Reliable User Verification},
   author={Tandon, Abhishek and Sharma, Geetanjali and Jaswal, Gaurav and Nigam, Aditya and Ramachandra, Raghavendra},
-  booktitle={2024 IEEE International Joint Conference on Biometrics (IJCB)}, 
-  title={Synthetic Forehead-creases Biometric Generation for Reliable User Verification}, 
+  booktitle={2024 IEEE International Joint Conference on Biometrics (IJCB)},
+  pages={1--9},
   year={2024},
-  volume={},
-  number={},
-  pages={1-9},
-  keywords={Bridges;Training;Data privacy;Forehead;Face recognition;Benchmark testing;Diffusion models;Time factors;Synthetic data;Iris recognition},
-  doi={10.1109/IJCB62174.2024.10744453}}
+  organization={IEEE}
+}
 ```
