@@ -16,7 +16,7 @@
 ![main-figure](./imgs/main-figure.png)
 
 
-# Results
+# Datasets
 
 | Database | Dataset | Pretrained Model (FHCVS) |
 |----------|:----------:|:----------:|
