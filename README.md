@@ -24,7 +24,6 @@
 | SS-PermuteAug (Synthetic) |    [link](https://huggingface.co/datasets/abhi-td/synthetic-forehead-creases/tree/main/subject_specific_synthetic_datasets/ss-permute-aug)      |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) |
 | SA-PermuteAug (Synthetic) | [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) | |
 ----------
-#### repository is under updation
 
 # Citation
 ```
