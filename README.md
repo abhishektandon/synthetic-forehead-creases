@@ -24,7 +24,7 @@
 | SS-PermuteAug (Synthetic) |    [link](https://huggingface.co/datasets/abhi-td/synthetic-forehead-creases/tree/main/subject_specific_synthetic_datasets/ss-permute-aug)      |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) |
 
 
-* FHCVS trained on Real + [SA-PermuteAug (Synthetic)](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface)  data: [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/sa_permute_aug_and_real_adaface)
+* FHCVS trained on Real + [SA-PermuteAug (Synthetic)](https://huggingface.co/datasets/abhi-td/synthetic-forehead-creases/tree/main/subject_agnostic_synthetic_datasets/sa-permute-aug)  data: [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/sa_permute_aug_and_real_adaface)
 ----------
 
 
