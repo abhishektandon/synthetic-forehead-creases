@@ -22,8 +22,12 @@
 |----------|:----------:|:----------:|
 | FH-V1 (Real)  |  [link](https://ktiwari.in/biometrics/databases/)    |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/forehead-v1-adaface) |
 | SS-PermuteAug (Synthetic) |    [link](https://huggingface.co/datasets/abhi-td/synthetic-forehead-creases/tree/main/subject_specific_synthetic_datasets/ss-permute-aug)      |    [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) |
-| SA-PermuteAug (Synthetic) | [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface) | |
+
+
+* FHCVS trained on Real + [SA-PermuteAug (Synthetic)](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/ss_permute_aug_adaface)  data: [link](https://huggingface.co/abhi-td/synthetic-forehead-creases/tree/main/recognition/sa_permute_aug_and_real_adaface)
 ----------
+
+
 
 # Citation
 ```
