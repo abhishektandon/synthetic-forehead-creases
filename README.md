@@ -16,7 +16,7 @@
 [//]:![main-figure](./imgs/main-figure.png)
 
 
-# Synthetic Datasets and Pretrained Models
+# Datasets and Pretrained Models
 
 | Database | Dataset | Pretrained Model (FHCVS) |
 |----------|:----------:|:----------:|
